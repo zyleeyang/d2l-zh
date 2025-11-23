@@ -1,0 +1,28 @@
+# 图片转PPT工具依赖文件
+# Image to PPT Conversion Tool Dependencies
+
+# Core dependencies
+python-pptx>=0.6.21
+opencv-python>=4.8.0
+numpy>=1.21.5
+Pillow>=9.0.0
+
+# OCR support
+pytesseract>=0.3.10
+paddleocr>=2.6.0
+
+# Deep learning for layout analysis (optional)
+# torch>=1.13.0
+# torchvision>=0.14.0
+# ultralytics>=8.0.0  # YOLO
+
+# Image processing
+scikit-image>=0.19.0
+scipy>=1.7.0
+
+# Color analysis
+colorthief>=0.2.1
+webcolors>=1.12
+
+# Utilities
+tqdm>=4.64.0
