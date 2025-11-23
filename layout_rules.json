@@ -1,0 +1,95 @@
+{
+  "slide_sizes": {
+    "16:9": {
+      "width": 10,
+      "height": 5.625,
+      "unit": "inches",
+      "description": "标准宽屏 (Standard Widescreen)"
+    },
+    "4:3": {
+      "width": 10,
+      "height": 7.5,
+      "unit": "inches",
+      "description": "标准 (Standard)"
+    },
+    "A4": {
+      "width": 8.27,
+      "height": 11.69,
+      "unit": "inches",
+      "description": "A4纸张 (A4 Paper)"
+    },
+    "custom": {
+      "width": 10,
+      "height": 5.625,
+      "unit": "inches",
+      "description": "自定义 (Custom)"
+    }
+  },
+  "aspect_ratio_thresholds": {
+    "16:9": {
+      "min": 1.7,
+      "max": 1.85
+    },
+    "4:3": {
+      "min": 1.25,
+      "max": 1.4
+    },
+    "A4": {
+      "min": 0.65,
+      "max": 0.75
+    }
+  },
+  "element_detection": {
+    "text": {
+      "min_area": 100,
+      "ocr_confidence_threshold": 0.5,
+      "margin": 5,
+      "adaptive_threshold_block_size": 11,
+      "adaptive_threshold_constant": 2
+    },
+    "shape": {
+      "min_area": 500,
+      "edge_threshold": 100,
+      "approximation_epsilon": 0.02,
+      "canny_threshold_low": 50,
+      "canny_threshold_high": 150
+    },
+    "table": {
+      "min_area": 1000,
+      "line_threshold": 50,
+      "min_rows": 2,
+      "min_cols": 2
+    },
+    "image": {
+      "min_area": 5000,
+      "edge_density_threshold": 0.3
+    }
+  },
+  "color_analysis": {
+    "dominant_colors_count": 5,
+    "color_quantization_levels": 8,
+    "background_detection_method": "corner_sampling"
+  },
+  "layout_optimization": {
+    "grid_snap": true,
+    "grid_size": 0.1,
+    "auto_align": true,
+    "merge_similar_text": true,
+    "text_similarity_threshold": 0.8,
+    "z_order_optimization": true
+  },
+  "fonts": {
+    "default_chinese": "Arial",
+    "default_chinese_windows": "微软雅黑",
+    "default_chinese_macos": "PingFang SC",
+    "default_chinese_linux": "Noto Sans CJK SC",
+    "default_english": "Arial",
+    "fallback": "Calibri",
+    "size_mapping": {
+      "small": 12,
+      "medium": 18,
+      "large": 24,
+      "title": 32
+    }
+  }
+}

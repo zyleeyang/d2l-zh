@@ -2,6 +2,7 @@
 **/__pycache__
 data/
 *.json
+!layout_rules.json
 *.params
 *.DS_Store
 *.csv
@@ -10,3 +11,6 @@ dist*
 _build/
 test*.md
 run.sh
+*.pptx
+output*.png
+demo_output*
