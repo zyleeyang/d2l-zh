@@ -226,8 +226,10 @@ class ImageToPPTConverter:
         for contour in contours:
             area = cv2.contourArea(contour)
             if area > min_area:
-                # 近似轮廓
-                epsilon = 0.02 * cv2.arcLength(contour, True)
+                # 近似轮廓 - 从配置获取epsilon系数
+                shape_config = self.config.get("element_detection", {}).get("shape", {})
+                epsilon_factor = shape_config.get("approximation_epsilon", 0.02)
+                epsilon = epsilon_factor * cv2.arcLength(contour, True)
                 approx = cv2.approxPolyDP(contour, epsilon, True)
                 
                 x, y, w, h = cv2.boundingRect(contour)
@@ -287,13 +289,16 @@ class ImageToPPTConverter:
                 text_frame.text = element.get("text", "示例文本")
                 
                 # 设置文本样式
+                font_config = self.config.get("fonts", {})
+                size_mapping = font_config.get("size_mapping", {})
+                default_size = size_mapping.get("medium", 14)
+                
                 for paragraph in text_frame.paragraphs:
-                    paragraph.font.size = Pt(14)
+                    paragraph.font.size = Pt(default_size)
                     # 使用配置中的字体或fallback
-                    font_config = self.config.get("fonts", {})
                     try:
                         paragraph.font.name = font_config.get("default_chinese", "Arial")
-                    except:
+                    except (KeyError, AttributeError):
                         paragraph.font.name = "Arial"
                     text_color = colors.get("text", (0, 0, 0))
                     paragraph.font.color.rgb = RGBColor(*text_color)
