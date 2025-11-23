@@ -158,10 +158,14 @@ class ImageToPPTConverter:
         img = cv2.imread(image_path)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         
-        # 使用自适应阈值
+        # 使用自适应阈值 - 从配置获取参数
+        text_config = self.config.get("element_detection", {}).get("text", {})
+        block_size = text_config.get("adaptive_threshold_block_size", 11)
+        constant = text_config.get("adaptive_threshold_constant", 2)
+        
         binary = cv2.adaptiveThreshold(
             gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 
-            cv2.THRESH_BINARY_INV, 11, 2
+            cv2.THRESH_BINARY_INV, block_size, constant
         )
         
         # 查找轮廓
@@ -204,8 +208,12 @@ class ImageToPPTConverter:
         img = cv2.imread(image_path)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         
-        # 边缘检测
-        edges = cv2.Canny(gray, 50, 150)
+        # 边缘检测 - 从配置获取参数
+        shape_config = self.config.get("element_detection", {}).get("shape", {})
+        canny_low = shape_config.get("canny_threshold_low", 50)
+        canny_high = shape_config.get("canny_threshold_high", 150)
+        
+        edges = cv2.Canny(gray, canny_low, canny_high)
         
         # 查找轮廓
         contours, _ = cv2.findContours(
@@ -281,7 +289,12 @@ class ImageToPPTConverter:
                 # 设置文本样式
                 for paragraph in text_frame.paragraphs:
                     paragraph.font.size = Pt(14)
-                    paragraph.font.name = "微软雅黑"
+                    # 使用配置中的字体或fallback
+                    font_config = self.config.get("fonts", {})
+                    try:
+                        paragraph.font.name = font_config.get("default_chinese", "Arial")
+                    except:
+                        paragraph.font.name = "Arial"
                     text_color = colors.get("text", (0, 0, 0))
                     paragraph.font.color.rgb = RGBColor(*text_color)
                     

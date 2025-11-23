@@ -43,12 +43,16 @@
     "text": {
       "min_area": 100,
       "ocr_confidence_threshold": 0.5,
-      "margin": 5
+      "margin": 5,
+      "adaptive_threshold_block_size": 11,
+      "adaptive_threshold_constant": 2
     },
     "shape": {
       "min_area": 500,
       "edge_threshold": 100,
-      "approximation_epsilon": 0.02
+      "approximation_epsilon": 0.02,
+      "canny_threshold_low": 50,
+      "canny_threshold_high": 150
     },
     "table": {
       "min_area": 1000,
@@ -75,7 +79,10 @@
     "z_order_optimization": true
   },
   "fonts": {
-    "default_chinese": "微软雅黑",
+    "default_chinese": "Arial",
+    "default_chinese_windows": "微软雅黑",
+    "default_chinese_macos": "PingFang SC",
+    "default_chinese_linux": "Noto Sans CJK SC",
     "default_english": "Arial",
     "fallback": "Calibri",
     "size_mapping": {
